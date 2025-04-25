@@ -22,7 +22,6 @@ def download_video(url: str, background_tasks: BackgroundTasks):
         'keep_video': True,
     }
 
-
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
