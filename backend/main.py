@@ -3,8 +3,17 @@ import yt_dlp
 import uuid
 import os
 from fastapi.responses import FileResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def remove_file(filename: str):
     if os.path.exists(filename):
@@ -34,4 +43,3 @@ def download_video(url: str, background_tasks: BackgroundTasks):
     
     except Exception as e:
         return {"erro": str(e)}
-
