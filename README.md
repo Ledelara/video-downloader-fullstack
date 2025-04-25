@@ -27,7 +27,7 @@ O projeto consiste em um frontend em React, onde o usuário pode inserir a URL d
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/SEU_USUARIO/video-downloader.git
+   git clone https://github.com/SEU_USUARIO/video-downloader-fullstack.git
    cd video-downloader/backend
 
 2. **Crie e ative um ambiente virtual:**
