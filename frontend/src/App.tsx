@@ -1,66 +1,63 @@
 import { useState } from "react";
 import "./App.css";
+import Container from "./components/container/Container";
+import Form from "./components/Form/Form";
+import { useMutation } from "@tanstack/react-query";
+import { downloadVideo } from "./services/api";
 
 function App() {
   const [videoUrl, setVideoUrl] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleDownload = async () => {
-    if (!videoUrl) {
-      setMessage("Por favor, insira a URL de um vídeo.");
-      return;
-    }
-
-    setLoading(true);
-    setMessage("");
-
-    try {
-      const response = await fetch(
-        `http://localhost:8080/download?url=${encodeURIComponent(videoUrl)}`
-      );
-      if (!response.ok) {
-        throw new Error("Erro ao baixar o vídeo.");
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
+  const { mutate: handleDownload, isPending, error, isSuccess } = useMutation({
+    mutationFn: downloadVideo,
+    onMutate: () => {
+      setLoading(true);
+      setMessage("");
+    },
+    onSuccess: (data) => {
+      const url = window.URL.createObjectURL(data);
       const a = document.createElement("a");
       a.href = url;
       a.download = "video-baixado.mp4";
       document.body.appendChild(a);
       a.click();
       a.remove();
-
       setMessage("Vídeo baixado com sucesso!");
-    } catch (error) {
-      if (error instanceof Error) {
-        setMessage(error.message);
+    },
+    onError: (err: unknown) => {
+      if (err instanceof Error) {
+        setMessage(err.message);
       } else {
         setMessage("Erro inesperado.");
       }
-    } finally {
+    },
+    onSettled: () => {
       setLoading(false);
     }
+  });
+
+  const handleSubmit = () => {
+    if (!videoUrl) {
+      setMessage("Por favor, insira a URL de um vídeo.");
+      return;
+    }
+
+    handleDownload(videoUrl);
   };
 
   return (
-    <div className="container">
-      <h1 className="title">Baixador de Vídeos</h1>
-      <input
-        type="text"
+    <Container title="Baixador de Vídeos">
+      <Form 
+        loading={isPending || loading}
+        videoUrl={videoUrl}
         placeholder="Cole a URL do vídeo aqui"
-        value={videoUrl}
+        message={isSuccess ? message : error ? message : ""}
+        onClick={handleSubmit}
         onChange={(e) => setVideoUrl(e.target.value)}
-        className="input"
       />
-      <button onClick={handleDownload} className="button" disabled={loading}>
-        {loading ? "Baixando..." : "Baixar"}
-        {loading && <span className="spinner"></span>}
-      </button>
-
-      {message && <p className="message">{message}</p>}
-    </div>
+    </Container>
   );
 }
 
