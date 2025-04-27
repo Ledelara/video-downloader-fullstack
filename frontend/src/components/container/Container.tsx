@@ -1,4 +1,4 @@
-import './Container.module.css';
+import './Container.css';
 
 interface ContainerProps {
   title: string;
