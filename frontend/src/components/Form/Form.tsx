@@ -1,3 +1,5 @@
+import './Form.css';
+
 interface FormProps {
   loading?: boolean;
   videoUrl?: string;
