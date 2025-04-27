@@ -6,9 +6,9 @@ import { useMutation } from "@tanstack/react-query";
 import { downloadVideo } from "./services/api";
 
 function App() {
-  const [videoUrl, setVideoUrl] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [videoUrl, setVideoUrl] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { mutate: handleDownload, isPending, error, isSuccess } = useMutation({
     mutationFn: downloadVideo,
@@ -43,7 +43,6 @@ function App() {
       setMessage("Por favor, insira a URL de um vídeo.");
       return;
     }
-
     handleDownload(videoUrl);
   };
 
