@@ -8,11 +8,13 @@ function App() {
   const [videoUrl, setVideoUrl] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [isEmpty, setIsEmpty] = useState<boolean>(false)
 
-  const { mutate: handleDownload, isPending, error, isSuccess } = useMutation({
+  const { mutate: handleDownload } = useMutation({
     mutationFn: downloadVideo,
     onMutate: () => {
       setLoading(true);
+      setIsEmpty(false)
       setMessage("");
     },
     onSuccess: (data) => {
@@ -38,21 +40,24 @@ function App() {
   });
 
   const handleSubmit = () => {
-    if (!videoUrl) {
-      setMessage("Por favor, insira a URL de um vídeo.");
+    if (!videoUrl || !/^https?:\/\/(www\.)?youtube\.com\/watch\?v=[a-zA-Z0-9_-]+/.test(videoUrl)) {
+      setIsEmpty(true)
+      setMessage("Por favor, insira uma URL válida do YouTube.");
       return;
     }
+
     handleDownload(videoUrl);
   };
 
   return (
     <Container>
       <Form 
+        isEmpty={isEmpty}
         title="Dowloader"
-        loading={isPending || loading}
+        loading={loading}
         videoUrl={videoUrl}
         placeholder="Cole a URL do vídeo aqui"
-        message={isSuccess ? message : error ? message : ""}
+        message={message}
         onClick={handleSubmit}
         onChange={(e) => setVideoUrl(e.target.value)}
       />
