@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./App.css";
 import Container from "./components/container/Container";
 import Form from "./components/Form/Form";
 import { useMutation } from "@tanstack/react-query";
