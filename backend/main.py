@@ -35,11 +35,11 @@ def download_video(url: str, background_tasks: BackgroundTasks):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
 
-        final_filename = f"{video_id}.mp4.mkv"
+        final_filename = f"{video_id}.mp4.webm"
 
         background_tasks.add_task(remove_file, final_filename)
 
-        return FileResponse(path=final_filename, filename="video.mp4", media_type='video/mp4')
+        return FileResponse(path=final_filename, filename="video.mp4", media_type='video/webm')
     
     except Exception as e:
         return {"erro": str(e)}
