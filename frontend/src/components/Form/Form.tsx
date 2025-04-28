@@ -1,17 +1,19 @@
 import './Form.css';
 
 interface FormProps {
+  title: string;
   loading?: boolean;
-  videoUrl?: string;
-  placeholder?: string;
-  message?: string;
-  onClick?: () => void;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  videoUrl: string;
+  placeholder: string;
+  message: string;
+  onClick: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function Form({ loading, videoUrl, placeholder, message, onClick, onChange }: FormProps) {
+export default function Form({ title, loading, videoUrl, placeholder, message, onClick, onChange }: FormProps) {
   return (
     <div className="form-container">
+      <h1 className='title'>{title}</h1>
       <input
         type="text"
         placeholder={placeholder}

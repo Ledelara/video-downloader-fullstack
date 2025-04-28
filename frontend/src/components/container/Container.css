@@ -11,11 +11,6 @@
   border-radius: 8px;
 }
 
-.title {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
 .content {
   display: flex;
   flex-direction: column;

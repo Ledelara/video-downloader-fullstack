@@ -46,8 +46,9 @@ function App() {
   };
 
   return (
-    <Container title="Donwloader">
+    <Container>
       <Form 
+        title="Dowloader"
         loading={isPending || loading}
         videoUrl={videoUrl}
         placeholder="Cole a URL do vídeo aqui"

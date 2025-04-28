@@ -1,14 +1,12 @@
 import './Container.css';
 
 interface ContainerProps {
-  title: string;
   children?: React.ReactNode;
 }
 
-export default function Container({ title, children }: ContainerProps) {
+export default function Container({ children }: ContainerProps) {
   return (
     <div className="container">
-      <h1 className="title">{title}</h1>
       <div className="content">
         {children}
       </div>
