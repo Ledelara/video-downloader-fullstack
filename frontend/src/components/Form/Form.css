@@ -3,36 +3,57 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  background-color: #f9f9f9;
+  padding: 4em 2em;
+  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  color: #63637e;
 }
 
 .title {
   font-size: 2rem;
   margin-bottom: 1rem;
+  color: #773ab4;
 }
 
 .input {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
-  border: 1px solid #ccc;
+  border: 1px solid #eaeaea;
   border-radius: 4px;
   font-size: 16px;
 }
 
+.input:focus {
+  border-color: #773ab4;
+  outline: none;
+  box-shadow: 0 0 5px rgba(119, 58, 180, 0.5);
+}
+
 .button {
-  width: 100%;
+  width: 100px;
   padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
+  border: 1px solid #dcdce3;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-weight: bold;
+  color: #63637e;
+}
+
+.button:hover {
+  background-color: #773ab4;
+  color: white;
+  border: 1px solid #773ab4;
+  box-shadow: 0 0 5px rgba(119, 58, 180, 0.5);
+}
+.button:disabled {
+  background-color: #eaeaea;
+  color: #a1a1a1;
+  cursor: not-allowed;
 }
 
 .message {
@@ -43,4 +64,22 @@
 
 .error-message {
   color: red;
+}
+
+@media screen and (max-width: 768px) {
+  .form-container {
+    padding: 2em 1em;
+  }
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .input {
+    padding: 8px;
+    font-size: 14px;
+    width: 90%; 
+  }
+  .button {
+    padding: 8px;
+  }
 }
